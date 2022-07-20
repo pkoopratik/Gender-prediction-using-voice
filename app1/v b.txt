@@ -1,0 +1,21 @@
+from django.shortcuts import render
+
+import os
+# Create your views here.
+def index(request):
+    return render(request,'index.html')
+
+def uploadfile(request):
+    print("uploading file")
+    dir = 'E:\\arti\\aipro\\media'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
+    print(request.FILES['image'])
+    f=request.FILES['image']
+    from . models import user
+    user=user(fl=f)
+    user.save()
+    return render(request,'index.html')
+
+
+
